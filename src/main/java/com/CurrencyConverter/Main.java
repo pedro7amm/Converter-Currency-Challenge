@@ -5,10 +5,12 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        String[] opciones = {"Conversor de Monedas","Salir"};
-        boolean correrApp = true;
-        int valorIngre = 0;
-        double resultado= 0.0;
+        String[] opciones = {"Conversor de Monedas"}; //Inicializando Opciones menu principal
+        String[] opcMoneda = {"Colones a Euros","Colones a Dolares","Colones a libras",
+                "Euros a Colones","Dolares a Colones","Libras a Colones","Volver al menu"}; //Inicializando opciones menu conversión de monedas
+        boolean correrApp = true; //variable que permite seguir corriendo la app si el user así lo desea
+        int valorIngre = 0; //variable para guardar el valor que ingresa el usuario
+        float resultado; //variable que guarda el resultado de la conversión
 
         //IMPLEMENTACION DE SELECT DE OPCIONES EN EL MENU
         /* String opcMenu = (JOptionPane.showInputDialog(null,
@@ -19,7 +21,7 @@ public class Main {
 
         while(correrApp){
             //IMPLEMENTACION DE BOTONES DEL MENU
-            int opcMenu = JOptionPane.showOptionDialog(
+            int opcMenu = JOptionPane.showOptionDialog( //Se crean varias opciones con el array Opciones usando la posicion del array como valor
                     null,
                     "Selecciona una opción:",
                     "Menú Inicial",
@@ -30,10 +32,8 @@ public class Main {
                     opciones[0]
             );
 
-            switch(opcMenu){
+            switch(opcMenu) { //Switch que permite ingresar a la opción que el usuario quiere
                 case 0:
-                    String[] opcMoneda = {"Colones a Euros","Colones a Dolares","Colones a libras",
-                            "Euros a Colones","Dolares a Colones","Libras a Colones","Volver al menu"};
                     int opcMenuMone = JOptionPane.showOptionDialog(
                             null,
                             "Selecciona una opción:",
@@ -45,31 +45,31 @@ public class Main {
                             opcMoneda[0]
                     );
                     switch(opcMenuMone) {
-                        case 0:
-                            try{
+                        case 0: //Colones a Euros
+                            try{ //Try catch para interceptar un error si el usuario no ingresa un valor deseado
                                 valorIngre = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Colones:"));
-                                resultado = valorIngre * 0.0018;
-                                JOptionPane.showMessageDialog(null, resultado+" EUROS.");
-                            }catch (NumberFormatException ex){
-                                ex.printStackTrace();
+                                resultado = valorIngre * 0.0018f; //conversión para obtener el valor en la moneda deseada
+                                JOptionPane.showMessageDialog(null, resultado+" EUROS.");//Mensaje brindando el resultado de la conversión
+                            }catch (NumberFormatException ex){ //Maneja la excepción de manera que da un mensaje al usuario informando lo que esta haciendo
+                                ex.printStackTrace(); //Se imprime en consola la excepción que tuvo el usuario
                                 JOptionPane.showMessageDialog(null,"Ingreso un caracter no valido");
                             }
 
                             break;
-                        case 1:
+                        case 1: //Colones a Dolares
                             try{
                                 valorIngre = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Colones:"));
-                                resultado = valorIngre * 0.0019;
+                                resultado = valorIngre * 0.0019f;
                                 JOptionPane.showMessageDialog(null, resultado+" USD.");
                             }catch (NumberFormatException ex){
                                 ex.printStackTrace();
                                 JOptionPane.showMessageDialog(null,"Ingreso un caracter no valido");
                             }
                             break;
-                        case 2:
+                        case 2: //Colones a Libras
                             try{
                                 valorIngre = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Colones:"));
-                                resultado = valorIngre * 0.0015;
+                                resultado = valorIngre * 0.0015f;
                                 JOptionPane.showMessageDialog(null, resultado+" LIBRAS.");
                             }catch (NumberFormatException ex){
                                 ex.printStackTrace();
@@ -77,10 +77,10 @@ public class Main {
                             }
 
                             break;
-                        case 3:
+                        case 3: //Euros a Colones
                             try{
                                 valorIngre = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Euros:"));
-                                resultado = valorIngre / 568.58;
+                                resultado = valorIngre * 568.58f;
                                 JOptionPane.showMessageDialog(null, resultado+" COLONES.");
                             }catch (NumberFormatException ex){
                                 ex.printStackTrace();
@@ -88,36 +88,39 @@ public class Main {
                             }
 
                             break;
-                        case 4:
+                        case 4: //Dolares a Colones
                             try{
                                 valorIngre = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Dolares:"));
-                                resultado = valorIngre / 535.26;
+                                resultado = valorIngre * 535.26f;
                                 JOptionPane.showMessageDialog(null, resultado+" COLONES.");
                             }catch (NumberFormatException ex){
                                 ex.printStackTrace();
                                 JOptionPane.showMessageDialog(null,"Ingreso un caracter no valido");
                             }
                             break;
-                        case 5:
+                        case 5: //Libras a Colones
                             try{
                                 valorIngre = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Libras:"));
-                                resultado = valorIngre / 658.96;
+                                resultado = valorIngre * 658.96f;
                                 JOptionPane.showMessageDialog(null, resultado+" COLONES.");
                             }catch (NumberFormatException ex){
                                 ex.printStackTrace();
                                 JOptionPane.showMessageDialog(null,"Ingreso un caracter no valido");
                             }
-
                             break;
                         default:
                             break;
                     }
-                case 1:
-                    correrApp=false;
-                    break;
+                    if(opcMenuMone!=6){
+                        int respuesta = JOptionPane.showConfirmDialog(null,
+                                "Desea realizar otra conversion?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        if(respuesta == JOptionPane.NO_OPTION){
+                            correrApp=false;
+                        }
+                    }
             }
         }
-        JOptionPane.showMessageDialog(null,"Gracias por usar el sistema.");
+        JOptionPane.showMessageDialog(null,"Programa Finalizado."); //Mensaje de cierre de programa
 
     }
 }
